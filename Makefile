@@ -41,3 +41,12 @@ mongrel2-cpp: src/mongrel2-cpp
 src/mongrel2-cpp:
 	test -d src || mkdir src
 	git clone https://github.com/akrennmair/mongrel2-cpp.git $@
+
+test:
+	cd src/mongrel2-cpp && make
+
+run:
+	m2sh load -config test.conf -db test.sqlite
+	m2sh start -db test.sqlite -host localhost
+
+.PHONY: run

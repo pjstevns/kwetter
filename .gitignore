@@ -1,3 +1,7 @@
 src/*
 stamps/*
 *.swp
+config.sqlite
+logs/*
+run/*
+test.sqlite
