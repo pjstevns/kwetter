@@ -42,7 +42,7 @@ src/mongrel2-cpp:
 	test -d src || mkdir src
 	git clone https://github.com/akrennmair/mongrel2-cpp.git $@
 
-test:
+test: mongrel2-cpp
 	cd src/mongrel2-cpp && make
 
 run:
