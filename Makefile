@@ -16,7 +16,9 @@ depends: pre-depends zeromq mongrel2 kwetter
 stamps:
 	test -d stamps || mkdir stamps
 
-kwetter: src/kwetter
+kwetter: src/kwetter/kwetterd
+
+src/kwetter/kwetterd:
 	cd src/kwetter && make clean all
 
 src/kwetter:
@@ -32,7 +34,7 @@ bin/buildout: bin/python
 bin/supervisorctl: bin/buildout
 
 supervisor: bin/supervisorctl
-	bin/buildout -v
+	bin/buildout -N
 
 zeromq: stamps/zeromq
 stamps/zeromq: stamps
