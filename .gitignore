@@ -5,3 +5,12 @@ config.sqlite
 logs/*
 run/*
 test.sqlite
+.installed.cfg
+bin/
+buildout.cfg
+distribute-*.tar.gz
+eggs/
+include/
+lib/
+parts/
+var/
