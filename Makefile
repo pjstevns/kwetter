@@ -52,7 +52,8 @@ stamps/mongrel2: stamps
 	test -e $(MONGREL2_SRC) || wget http://mongrel2.org/static/downloads/$(MONGREL2_SRC) ;\
 	test -d $(MONGREL2_VER) || tar xjf $(MONGREL2_SRC); \
 	cd $(MONGREL2_VER); \
-	make clean all && sudo make install
+	make clean all && sudo make install && \
+	cd examples/procer && make clean all && sudo make install
 	touch $@
 
 mongrel2-cpp: src/mongrel2-cpp
