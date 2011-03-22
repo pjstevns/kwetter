@@ -1,7 +1,7 @@
 
 MONGREL2_VER=mongrel2-1.4
 MONGREL2_SRC=$(MONGREL2_VER).tar.bz2
-ZMQ_VER=zeromq-2.0.8
+ZMQ_VER=zeromq-2.1.3
 ZMQ_SRC=$(ZMQ_VER).tar.gz
 
 default: all
@@ -40,7 +40,7 @@ zeromq: stamps/zeromq
 stamps/zeromq: stamps
 	test -d src || mkdir src
 	cd src && \
-	test -e $(ZMQ_SRC) || wget http://www.zeromq.org/local--files/area:download/$(ZMQ_SRC) ;\
+	test -e $(ZMQ_SRC) || wget http://download.zeromq.org/$(ZMQ_SRC) ;\
 	test -d $(ZMQ_VER) || tar xzf $(ZMQ_SRC); \
 	cd $(ZMQ_VER) && ./configure && make && sudo make install && sudo ldconfig
 	touch $@
