@@ -67,7 +67,7 @@ test: mongrel2-cpp
 	cd src/mongrel2-cpp && make
 
 run:
-	m2sh load -config test.conf -db test.sqlite
-	m2sh start -db test.sqlite -host localhost
+	m2sh load -config kwetter.conf -db kwetter.sqlite
+	m2sh start -db kwetter.sqlite -host localhost
 
 .PHONY: run supervisor
