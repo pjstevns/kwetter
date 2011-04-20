@@ -1,29 +1,23 @@
 
-MONGREL2_VER=mongrel2-1.4
-MONGREL2_SRC=$(MONGREL2_VER).tar.bz2
-ZMQ_VER=zeromq-2.1.3
-ZMQ_SRC=$(ZMQ_VER).tar.gz
-
 default: all
 
-all: depends supervisor
+all: pre-depends buildout kwetter.core
 
 pre-depends: stamps
-	@echo run: sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config
-
-depends: pre-depends zeromq mongrel2 kwetter
+	@echo run: sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex
 
 stamps:
 	test -d stamps || mkdir stamps
 
-kwetter: src/kwetter/kwetterd
+kwetter.core: src/kwetter.core/kwetterd
 
-src/kwetter/kwetterd:
-	cd src/kwetter && make clean all
+src/kwetter.core/kwetterd: src/kwetter.core
+	cd src/kwetter.core && \
+		env ZMQ_CFLAGS="-I ../../parts/zeromq/include" ZMQ_LDFLAGS="-L ../../parts/zeromq/lib -lzmq" ZDB_CFLAGS="-I ../../parts/libzdb/include/zdb" ZDB_LDFLAGS="-L ../../parts/libzdb/lib -lzdb" make clean all
 
-src/kwetter:
+src/kwetter.core:
 	test -d src || mkdir src
-	git clone paul@git.nfg.nl:/var/git/kwetter $@
+	git clone ssh://git.nfg.nl/var/git/kwetter.core $@
 
 bin/python:
 	virtualenv --no-site-packages --python=python2.6 --clear .
@@ -33,38 +27,8 @@ bin/buildout: bin/python
 
 bin/supervisorctl: bin/buildout
 
-supervisor: bin/supervisorctl
+buildout: bin/supervisorctl
 	bin/buildout -N
-
-zeromq: stamps/zeromq
-stamps/zeromq: stamps
-	test -d src || mkdir src
-	cd src && \
-	test -e $(ZMQ_SRC) || wget http://download.zeromq.org/$(ZMQ_SRC) ;\
-	test -d $(ZMQ_VER) || tar xzf $(ZMQ_SRC); \
-	cd $(ZMQ_VER) && ./configure && make && sudo make install && sudo ldconfig
-	touch $@
-	
-mongrel2: stamps/mongrel2
-stamps/mongrel2: stamps
-	test -d src || mkdir src
-	cd src && \
-	test -e $(MONGREL2_SRC) || wget http://mongrel2.org/static/downloads/$(MONGREL2_SRC) ;\
-	test -d $(MONGREL2_VER) || tar xjf $(MONGREL2_SRC); \
-	cd $(MONGREL2_VER); \
-	make clean all && sudo make install && \
-	cd examples/procer && make clean all && sudo make install
-	touch $@
-
-mongrel2-cpp: src/mongrel2-cpp
-	cd src/mongrel2-cpp && make && sudo make install
-
-src/mongrel2-cpp:
-	test -d src || mkdir src
-	git clone https://github.com/akrennmair/mongrel2-cpp.git $@
-
-test: mongrel2-cpp
-	cd src/mongrel2-cpp && make
 
 run:
 	m2sh load -config kwetter.conf -db kwetter.sqlite
