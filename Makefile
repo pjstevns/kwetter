@@ -1,7 +1,7 @@
 
 default: all
 
-all: pre-depends buildout kwetter.core
+all: pre-depends buildout kwetter.core run
 
 pre-depends: stamps
 	@echo run: sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex
@@ -30,8 +30,11 @@ bin/supervisorctl: bin/buildout
 buildout: bin/supervisorctl
 	bin/buildout -N
 
-run:
-	m2sh load -config kwetter.conf -db kwetter.sqlite
-	m2sh start -db kwetter.sqlite -host localhost
+run: kwetter.sqlite
+	mkdir run
 
-.PHONY: run supervisor
+kwetter.sqlite:
+	parts/mongrel2/bin/m2sh load -config kwetter.conf -db kwetter.sqlite
+#	m2sh start -db kwetter.sqlite -host localhost
+
+.PHONY: supervisor
