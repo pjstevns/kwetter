@@ -4,7 +4,7 @@ default: all
 all: pre-depends buildout mongrel2-cpp kwetter.core run
 
 pre-depends: stamps
-	sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex
+	sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex python-virtualenv
 
 stamps:
 	test -d stamps || mkdir stamps
