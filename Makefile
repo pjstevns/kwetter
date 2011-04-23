@@ -14,6 +14,7 @@ kwetter.core: src/mongrel2-cpp/libm2pp.a src/kwetter.core/kwetterd
 src/kwetter.core/kwetterd: src/kwetter.core
 	cd src/kwetter.core && env \
 		M2PP_CFLAGS="-I ../../parts/mongrel2-cpp/include" \
+		M2PP_LDFLAGS="-L ../../parts/mongrel2-cpp/lib -Wl,-rpath -Wl,../../parts/mongrel2-cpp/lib " \
 		ZMQ_CFLAGS="-I ../../parts/zeromq/include" \
 		ZMQ_LDFLAGS="-L ../../parts/zeromq/lib -Wl,-rpath -Wl,../../parts/zeromq/lib -lzmq" \
 		ZDB_CFLAGS="-I ../../parts/libzdb/include/zdb" \
