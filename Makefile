@@ -1,7 +1,7 @@
 
 default: all
 
-all: pre-depends buildout mongrel2-cpp kwetter.core run
+all: pre-depends buildout kwetter.core run
 
 pre-depends: stamps
 	sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex python-virtualenv
@@ -9,21 +9,27 @@ pre-depends: stamps
 stamps:
 	test -d stamps || mkdir stamps
 
-kwetter.core: src/kwetter.core/kwetterd
+kwetter.core: src/mongrel2-cpp/libm2pp.a src/kwetter.core/kwetterd
 
 src/kwetter.core/kwetterd: src/kwetter.core
-	cd src/kwetter.core && \
-		env ZMQ_CFLAGS="-I ../../parts/zeromq/include" ZMQ_LDFLAGS="-L ../../parts/zeromq/lib -lzmq" ZDB_CFLAGS="-I ../../parts/libzdb/include/zdb" ZDB_LDFLAGS="-L ../../parts/libzdb/lib -lzdb" make clean all
+	cd src/kwetter.core && env \
+		M2PP_CFLAGS="-I ../../parts/mongrel2-cpp/include" \
+		ZMQ_CFLAGS="-I ../../parts/zeromq/include" \
+		ZMQ_LDFLAGS="-L ../../parts/zeromq/lib -Wl,-rpath -Wl,../../parts/zeromq/lib -lzmq" \
+		ZDB_CFLAGS="-I ../../parts/libzdb/include/zdb" \
+		ZDB_LDFLAGS="-L ../../parts/libzdb/lib -Wl,-rpath -Wl,../../parts/libzdb/lib -lzdb" \
+		make clean all
 
 src/kwetter.core:
 	test -d src || mkdir src
 	git clone ssh://git.nfg.nl/var/git/kwetter.core $@
 
-mongrel2-cpp: src/mongrel2-cpp/libm2pp.a
-
 src/mongrel2-cpp/libm2pp.a: src/mongrel2-cpp
-	cd src/mongrel2-cpp &&
-		env PREFIX="-I ../../parts/mongrel2-cpp" OPTLIBS="-L ../../parts/zeromq/lib" make clean all install
+	cd src/mongrel2-cpp && env \
+		PREFIX="../../parts/mongrel2-cpp" \
+		OPTLIBS="-L ../../parts/zeromq/lib -Wl,-rpath -Wl,../../parts/zeromq/lib" \
+		OPTFLAGS="-I ../../parts/zeromq/include" \
+		make all install
 
 src/mongrel2-cpp:
 	test -d src || mkdir src
