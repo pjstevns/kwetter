@@ -4,7 +4,7 @@ default: all
 all: pre-depends buildout kwetter.core run
 
 pre-depends: stamps
-	@echo run: sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex
+	sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex
 
 stamps:
 	test -d stamps || mkdir stamps
