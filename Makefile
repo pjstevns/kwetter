@@ -22,7 +22,10 @@ src/kwetter.core:
 bin/python:
 	virtualenv --no-site-packages --python=python2.6 --clear .
 
-bin/buildout: bin/python
+download-cache:
+	[ -d download-cache ] || mkdir download-cache
+
+bin/buildout: bin/python download-cache
 	bin/easy_install zc.buildout
 
 bin/supervisorctl: bin/buildout

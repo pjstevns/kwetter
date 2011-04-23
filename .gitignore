@@ -12,3 +12,5 @@ include/
 lib/
 parts/
 var/
+downloads/
+download-cache/
