@@ -1,8 +1,5 @@
 BUILDOUT_DIRECTORY:=$(PWD)
 
-check:
-	echo $(BUILDOUT_DIRECTORY)
-
 all: pre-depends buildout kwetter.core run
 
 pre-depends: stamps
