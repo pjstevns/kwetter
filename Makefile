@@ -54,6 +54,8 @@ run: kwetter.sqlite
 
 kwetter.sqlite:
 	parts/mongrel2/bin/m2sh load -config kwetter.conf -db kwetter.sqlite
-#	m2sh start -db kwetter.sqlite -host localhost
+
+test:
+	echo $(PWD)
 
 .PHONY: supervisor
