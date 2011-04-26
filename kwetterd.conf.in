@@ -1,0 +1,19 @@
+#
+# kwetter.conf
+#
+# json-formatted file with inline comments
+# 
+{
+	# the database parameters
+	# only contains the database URL for now
+	"database": {
+		#"url": "mysql://kwetter:kwetter@localhost/kwetter",
+		#"url": "postgresql://kwetter:kwetter@localhost/kwetter",
+		"url": "sqlite://${buildout:directory}/var/kwetter.db",
+	},
+	# zmq channels
+	"channel": {
+		"command": "tcp://*:5555",
+	}
+}
+

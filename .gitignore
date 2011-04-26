@@ -14,3 +14,4 @@ parts/
 var/
 downloads/
 download-cache/
+etc/
