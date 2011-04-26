@@ -48,6 +48,7 @@ bin/supervisorctl: bin/buildout
 
 buildout: bin/supervisorctl
 	bin/buildout -N
+	test -s var/kwetter.db || sqlite3 var/kwetter.db < src/kwetter.core/sql/db.sqlite
 
 run: kwetter.sqlite
 	mkdir run
