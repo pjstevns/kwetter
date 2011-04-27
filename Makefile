@@ -22,7 +22,7 @@ src/kwetter.core/kwetterd: src/kwetter.core
 
 src/kwetter.core:
 	test -d src || mkdir src
-	git clone ssh://git.nfg.nl/var/git/kwetter.core $@
+	git clone git://github.com/pjstevns/kwetter.core $@
 
 src/mongrel2-cpp/libm2pp.a: src/mongrel2-cpp
 	cd src/mongrel2-cpp && env \
