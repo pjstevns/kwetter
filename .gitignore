@@ -15,3 +15,5 @@ var/
 downloads/
 download-cache/
 etc/
+README.html
+*~
