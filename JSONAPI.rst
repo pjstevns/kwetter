@@ -8,8 +8,9 @@ command
   command to be called
 
 result code for data modifications
-  ``OK`` for success
-  ``NO`` for failure
+* ``OK`` for success
+* ``NO`` for failure
+* ``ERR`` for server error
 
 avatar
   user id
