@@ -24,12 +24,18 @@ follow
 message
   a text message
 
+msgid
+  a unique integer key for a message
+
 messages
-  a list of (avatar, message, timestamp) instances
+  a list of (msgid, avatar, message, timestamp) instances
 
 timestamp
   a datetime without timezone speficied as a string, 
   in the format ``2011-05-13 11:57:37``
+
+tag
+  a string annotation on a message
 
 
 Commands
@@ -171,8 +177,7 @@ If omitted, defaults to one week.
 ``limit`` is optional.
 If omitted, defaults to 10 messages.
 
-Returns the search arguments given plus a list of messages
-in (avatar, message, timestamp) format::
+Returns the search arguments given plus a list of messages::
 
  {
  "avatar" "john2",
@@ -180,34 +185,87 @@ in (avatar, message, timestamp) format::
  "since": "2011-05-06 13:48:20.595121",
  "limit": 10,
  "messages": [ 
-   [ "mary", "other foobar message", "2011-05-06 11:57:37" ],
-   [ "jane", "some foobar message", "2011-05-06 11:56:20" ] 
+   [ "121", "mary", "other foobar message", "2011-05-06 11:57:37" ],
+   [ "109", "jane", "some foobar message", "2011-05-06 11:56:20" ] 
  ] }
 
 
 timeline
 --------
 
-Show all messages of self and subscribed avatars since timestamp ``since``::
+Show last ``limit`` messages of self and subscribed avatars since timestamp ``since``::
 
  {
  "command": "timeline",
  "avatar": "john2",
- "since": "2011-05-04 13:48:20.595121"
+ "since": "2011-05-04 13:48:20.595121",
+ "limit": "10"
  }
 
 ``since`` is optional.
 If omitted, defaults to one week.
 
-Returns the timeline arguments given plus a list of messages
-in (avatar, message, timestamp) format::
+``limit`` is optional.
+If omitted, defaults to 10 messages.
+
+Returns the timeline arguments given plus a list of messages::
 
  {
  "avatar": "john2",
  "since": "2011-05-04 13:48:20.595121",
+ "limit": 10,
  "messages": [
-   [ "mary", "foo message", "2011-05-13 11:57:38" ],
-   [ "jane", "bar message", "2011-05-13 11:57:38" ],
-   [ "john2", "foobar message", "2011-05-13 11:57:37" ]
+   [ "999", "mary", "foo message", "2011-05-13 11:57:38" ],
+   [ "888", "jane", "bar message", "2011-05-13 11:57:38" ],
+   [ "777", "john2", "foobar message", "2011-05-13 11:57:37" ]
  ] }
  
+
+updates
+-------
+
+Show last ``limit`` messages of user ``followee`` since timestamp ``since``::
+
+  FIXME
+
+Currently being implemented.
+
+``since`` is optional.
+If omitted, defaults to one week.
+
+``limit`` is optional.
+If omitted, defaults to 10 messages.
+
+Returns the query arguments plus a list of messages.
+
+
+tag
+---
+
+Annotate message ``msgid`` with tag ``tag`` for user ``avatar``::
+
+  FIXME
+
+Currently being implemented.
+
+This allows setting favorites, and tagging in general.
+
+
+untag
+-----
+
+Remove tag ``tag`` from message ``msgid`` for user ``avatar``::
+
+  FIXME
+
+Currently being implemented.
+
+
+tags
+----
+
+List tags on ``msgid_list`` set by user ``avatar``::
+
+  FIXME
+
+Currently being implemented.
