@@ -66,5 +66,7 @@ To shut down the system::
 Using kwetter
 -------------
 
-The JSON API is not documented yet. See the doctests in `kwetter.core <https://github.com/pjstevns/kwetter.core>`_ for initial reference. Providing full documentation is a high-priority TODO.
+The JSON API is documented in `JSONAPI.rst`_. 
+
+See also the module doctests in `kwetter.core <https://github.com/pjstevns/kwetter.core>`_ for additional reference.
 
