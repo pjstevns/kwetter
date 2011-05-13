@@ -19,6 +19,7 @@ src/kwetter.core/kwetterd: src/kwetter.core
 		ZDB_CFLAGS="-I $(BUILDOUT_DIRECTORY)/parts/libzdb/include/zdb" \
 		ZDB_LDFLAGS="-L $(BUILDOUT_DIRECTORY)/parts/libzdb/lib -Wl,-rpath -Wl,$(BUILDOUT_DIRECTORY)/parts/libzdb/lib -lzdb" \
 		make clean all
+	test -s var/kwetter.db || sqlite3 var/kwetter.db < src/kwetter.core/sql/db.sqlite
 
 src/kwetter.core:
 	test -d src || mkdir src
@@ -48,7 +49,6 @@ bin/supervisorctl: bin/buildout
 
 buildout: bin/supervisorctl
 	bin/buildout -N
-	test -s var/kwetter.db || sqlite3 var/kwetter.db < src/kwetter.core/sql/db.sqlite
 
 run: kwetter.sqlite
 	mkdir run
