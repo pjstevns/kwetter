@@ -3,7 +3,12 @@ BUILDOUT_DIRECTORY:=$(PWD)
 all: pre-depends buildout kwetter.core run
 
 pre-depends: stamps
-	sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex python-virtualenv
+	@echo on Ubuntu/Debian run:
+	@echo    sudo apt-get install -y uuid-dev g++ libsqlite3-dev sqlite3 libjson0-dev pkg-config flex python-virtualenv
+	@echo on Centos5/Fedora run:
+	@echo    sudo yum install -y uuid-devel gcc-c++ sqlite-devel sqlite json-c-devel pkgconfig flex python2.6-setuptools
+	@echo    sudo easy_install-2.6 virtualenv
+	@sleep 3
 
 stamps:
 	test -d stamps || mkdir stamps
