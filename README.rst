@@ -7,7 +7,7 @@ scalable microblogging engine.
 You can use this "kwetter" buildout as a microblogging backend.
 
 A subset of the backend functionality is available through a Plone integrated
-frontend, see `collective.kwetter <https://github.com/gyst/collective/kwetter>`_
+frontend, see `collective.kwetter <https://github.com/gyst/collective.kwetter>`_
 
 
 Installing kwetter
